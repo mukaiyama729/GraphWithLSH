@@ -1,0 +1,8 @@
+/target
+/__pycache__/*.cpython*.pyc
+/__pycache__
+*/__pycache__/
+*/*/__pycache__/
+/*.pyc
+/*.cpython*
+/main.py
