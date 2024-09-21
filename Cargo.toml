@@ -12,7 +12,7 @@ rayon = "1.7"
 wide = "0.7"
 
 [lib]
-crate-type = ["cdylib"]  # Pythonと連携するために必要
+crate-type = ["cdylib"]
 
 [package.metadata.maturin]
-name = "rust_graph"  # Python側で呼び出されるモジュール名
+name = "rust_graph"

@@ -302,7 +302,7 @@ class LSHKNN(BaseLSHKNN):
 
     def compute_prob_eigenvectors(self, k=128, which='LM') -> Tuple[Vec, Matrix]:
         P = self.compute_prob_matrix()
-        eigenvalues, eigenvectors = eigsh(P, k=k, which=which)
+        eigenvalues, eigenvectors = eigsh(P.T, k=k, which=which)
         return (eigenvalues, eigenvectors)
 
     def compute_laplacian_eigenvectors(self, k=128, which='LM') -> Tuple[Vec, Matrix]:
@@ -310,3 +310,11 @@ class LSHKNN(BaseLSHKNN):
         L = identity(P.shape[0]) - P
         eigenvalues, eigenvectors = eigsh(L, k=k, which=which)
         return (eigenvalues, eigenvectors)
+
+    def diffusion(self, t: int, start_index: int) -> Vec:
+        P = self.compute_prob_matrix().T
+        start_vec = np.zeros(P.shape[0])
+        start_vec[start_index] = 1
+        for _ in range(t):
+            start_vec = P.dot(start_vec)
+        return start_vec
